@@ -1,0 +1,16 @@
+
+{{#if error }}
+<div class="alert alert-danger">{{error}}</div>
+{{/if}}
+
+{{#if message }}
+<div class="alert alert-danger">{{message}}</div>
+{{/if}}
+
+<form class = "signup" method="POST" action="/signup">
+	Enter a username and password to register an account:
+	<div>Email: <input type="text" name="username" placeholder="Please enter a username"></div>
+	<div>Password: <input type="text" name="password" placeholder="Please enter a password"></div>
+
+	<input type="submit" value = "Signup">
+</form>
