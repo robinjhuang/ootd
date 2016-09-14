@@ -1,19 +1,21 @@
 <div class = "container-fluid">
 	<div class="row">
 		<div class = "col-sm-12">
-			<a href="/signup">Register</a>
+			<!-- <a href="/signup">Register</a>
 
-			<form class = "signup" method="POST" action="/login">
+			 <form class = "signup" method="POST" action="/login">
 				Login
 				<div>Username: <input type="text" name="username" placeholder="Please enter a username"></div>
 				<div>Password: <input type="text" name="password" placeholder="Please enter a password"></div>
 				<input type="submit" value = "Login">
-			</form>
+			</form> -->
 			<a href='/login/facebook' class='btn btn-block btn-social btn-facebook'>Login with Facebook</a>
 
+			{{#if user}}
 			<h1> Hello, {{user.fb.firstName}} </h1>
+			<img src="{{user.fb.profilePictureURL}}"></img>
 			<div><a href="/signout">Signout</a></div>
-		
+			{{/if}}
 
 			{{#if message }}
 				<div class="alert alert-danger">{{message}}</div>

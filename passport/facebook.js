@@ -8,19 +8,20 @@ module.exports = function(passport) {
         clientID        : fbConfig.appID,
         clientSecret    : fbConfig.appSecret,
         callbackURL     : fbConfig.callbackUrl,
-        profileFields: ['id', 'displayName', 'photos', 'email', 'first_name', 'last_name']
+        profileFields: ['id', 'displayName', 'picture.type(large)', 'email', 'first_name', 'last_name']
     },
 
     // facebook will send back the tokens and profile
     function(access_token, refresh_token, profile, done) {
 
-    	console.log('profile', profile);
+    	//console.log('PROFILE', profile);
+    	console.log('PROILE PIC', profile.photos[0].value);
 
 		// asynchronous
 		process.nextTick(function() {
 
 			// find the user in the database based on their facebook id
-	        User.findOne({ 'id' : profile.id }, function(err, user) {
+	        User.findOne({ 'fb.id' : profile.id }, function(err, user) {
 
 	        	// if there is an error, stop everything and return that
 	        	// ie an error connecting to the database
@@ -40,6 +41,7 @@ module.exports = function(passport) {
 	                newUser.fb.firstName  = profile.name.givenName;
 	                newUser.fb.lastName = profile.name.familyName; // look at the passport user profile to see how names are returned
 	                newUser.fb.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+	                newUser.fb.profilePictureURL = profile.photos[0].value;
 
 					// save our user to the database
 	                newUser.save(function(err) {
